@@ -11,8 +11,8 @@ class tagsAPI extends CRUDAPI {
 					"request" => $request,
 					"data" => $data,
 					"output" => [
-						'results' => $result,
-						'record' => $record,
+						'dom' => $this->convertToDOM($record),
+						'raw' => $record,
 					],
 				];
 			} else {
