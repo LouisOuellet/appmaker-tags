@@ -1,3 +1,68 @@
 {
-    "tags": []
+    "tags": [
+        {
+            "id": 1,
+            "created": "2020-11-17 08:47:51",
+            "modified": "2020-11-17 08:48:07",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Transport"
+        },
+        {
+            "id": 2,
+            "created": "2020-11-17 08:47:51",
+            "modified": "2020-11-17 08:48:07",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Logistics"
+        },
+        {
+            "id": 3,
+            "created": "2020-11-17 08:47:51",
+            "modified": "2020-11-17 08:48:07",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Brokerage"
+        },
+        {
+            "id": 4,
+            "created": "2020-11-17 08:47:51",
+            "modified": "2020-11-17 08:48:07",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Consultation"
+        },
+        {
+            "id": 5,
+            "created": "2021-06-02 09:31:59",
+            "modified": "2021-06-02 09:31:59",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Marketing"
+        },
+        {
+            "id": 6,
+            "created": "2021-06-02 09:47:17",
+            "modified": "2021-06-02 09:47:17",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Cloud Computing"
+        },
+        {
+            "id": 7,
+            "created": "2021-06-02 09:53:03",
+            "modified": "2021-06-02 09:53:03",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Web Hosting"
+        },
+        {
+            "id": 8,
+            "created": "2021-06-02 09:58:38",
+            "modified": "2021-06-02 09:58:38",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Mail Hosting"
+        }
+    ]
 }
