@@ -6,10 +6,15 @@ API.Plugins.tags = {
 	},
 	init:function(){
 		API.GUI.Sidebar.Nav.add('tags', 'development');
-		if(API.Helper.isSet(API.Plugins,['organizations'])){
-			API.Plugins.organizations.form.create.tags = {
-			  0:"tags",
-			}
+		if(API.Helper.isSet(API.Contents,['Settings','plugins','organizations','status']) && API.Contents.Settings.plugins.organizations.status){
+			var isInitialized = setInterval(function() {
+				clearInterval(isInitialized);
+				if(API.Helper.isSet(API.Plugins,['organizations'])){
+					API.Plugins.organizations.form.create.tags = {
+					  0:"tags",
+					}
+				}
+			}, 100);
 		}
 	},
 	load:{
