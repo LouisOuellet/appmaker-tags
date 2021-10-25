@@ -9,12 +9,12 @@ API.Plugins.tags = {
 		var isAPIInitialized = setInterval(function() {
 			if(API.initiated){
 				clearInterval(isAPIInitialized);
-				var isInitialized = {};
+				var isTagsInitialized = {};
 				for(var [key, plugin] of Object.entries(['organizations','leads','my_leads','my_prospects','clients','my_clients'])){
 					if(API.Helper.isSet(API.Contents,['Settings','plugins',plugin,'status']) && API.Contents.Settings.plugins[plugin].status){
-						isInitialized[plugin] = setInterval(function() {
+						isTagsInitialized[plugin] = setInterval(function() {
 							if(API.Helper.isSet(API.Plugins,[plugin,'forms','create'])){
-								clearInterval(isInitialized[plugin]);
+								clearInterval(isTagsInitialized[plugin]);
 								API.Plugins[plugin].forms.create.tags = { 0:"tags" }
 								console.log(API.Plugins[plugin].forms.create.tags);
 							}
