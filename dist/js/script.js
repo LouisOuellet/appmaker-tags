@@ -20,7 +20,12 @@ API.Plugins.tags = {
 			var isInitialized = setInterval(function() {
 				if(API.Helper.isSet(API.Plugins,[plugin,'forms','create'])){
 					clearInterval(isInitialized);
-					API.Plugins[plugin].forms.create.tags = { 0:"tags" }
+					var id = 0;
+					for(var [key, value] of Object.entries(API.Plugins[plugin].forms.create)){
+						if((key+"").match(/^\d+$/)){ id = key; }
+					}
+					id++;
+					API.Plugins[plugin].forms.create.tags[id] = "tags";
 				}
 			}, 100);
 		}
