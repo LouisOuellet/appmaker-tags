@@ -19,7 +19,7 @@ API.Plugins.tags = {
 								API.Plugins[plugin].forms.create.tags = { 0:"tags" }
 								console.log(API.Plugins[plugin].forms.create.tags);
 							}
-						}, 100);
+						}, 100000);
 					}
 				}
 			}
