@@ -13,6 +13,7 @@ API.Plugins.tags = {
 				for(var [key, plugin] of Object.entries(['organizations','leads','my_leads','my_prospects','clients','my_clients'])){
 					if(API.Helper.isSet(API.Contents,['Settings','plugins',plugin,'status']) && API.Contents.Settings.plugins[plugin].status){
 						isTagsInitialized[plugin] = setInterval(function() {
+							clearInterval(isTagsInitialized[plugin]);
 							if(API.Helper.isSet(API.Plugins,[plugin,'forms','create'])){
 								clearInterval(isTagsInitialized[plugin]);
 								API.Plugins[plugin].forms.create.tags = { 0:"tags" }
