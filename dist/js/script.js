@@ -22,7 +22,7 @@ API.Plugins.tags = {
 					clearInterval(isInitialized);
 					var id = 0;
 					for(var [key, value] of Object.entries(API.Plugins[plugin].forms.create)){
-						if((key+"").match(/^\d+$/)){ id = key; }
+						if(API.Helper.isInt(key)){ id = key; }
 					}
 					id++;
 					API.Plugins[plugin].forms.create[id] = "tags";
