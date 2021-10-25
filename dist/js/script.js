@@ -10,20 +10,12 @@ API.Plugins.tags = {
 			if(API.initiated){
 				clearInterval(isAPIInitialized);
 				for(var [key, plugin] of Object.entries(['organizations','leads','my_leads','my_prospects','clients','my_clients'])){
-					console.log(plugin);
 					if(API.Helper.isSet(API.Contents,['Settings','plugins',plugin,'status']) && API.Contents.Settings.plugins[plugin].status){
-						console.log(API.Contents.Settings.plugins[plugin].status);
-						console.log(API.Helper.isSet(API.Plugins,[plugin,'forms','create']));
 						var isInitialized = setInterval(function() {
 							if(API.Helper.isSet(API.Plugins,[plugin,'forms','create'])){
-								console.log("Initializing");
 								clearInterval(isInitialized);
-								API.Plugins[plugin].forms.create.contact = {
-									0:"first_name",
-									1:"middle_name",
-									2:"last_name",
-									3:"job_title",
-								}
+								API.Plugins[plugin].forms.create.tags = { 0:"tags" }
+								console.log(API.Plugins[plugin].forms.create.tags);
 							}
 						}, 100);
 					}
