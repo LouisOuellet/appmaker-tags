@@ -7,9 +7,13 @@ API.Plugins.tags = {
 	init:function(){
 		API.GUI.Sidebar.Nav.add('tags', 'development');
 		for(var [key, plugin] of Object.entries(['organizations','leads','my_leads','my_prospects','clients','my_clients'])){
+			console.log(plugin);
 			if(API.Helper.isSet(API.Contents,['Settings','plugins',plugin,'status']) && API.Contents.Settings.plugins[plugin].status){
+				console.log(API.Contents.Settings.plugins[plugin].status);
+				console.log(API.Helper.isSet(API.Plugins,[plugin,'forms','create']));
 				var isInitialized = setInterval(function() {
 					if(API.Helper.isSet(API.Plugins,[plugin,'forms','create'])){
+						console.log("Initializing");
 						clearInterval(isInitialized);
 						API.Plugins[plugin].forms.create.contact = {
 							0:"first_name",
