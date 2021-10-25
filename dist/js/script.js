@@ -25,7 +25,7 @@ API.Plugins.tags = {
 						if((key+"").match(/^\d+$/)){ id = key; }
 					}
 					id++;
-					API.Plugins[plugin].forms.create.tags[id] = "tags";
+					API.Plugins[plugin].forms.create[id] = "tags";
 				}
 			}, 100);
 		}
