@@ -6,25 +6,25 @@ API.Plugins.tags = {
 	},
 	init:function(){
 		API.GUI.Sidebar.Nav.add('tags', 'development');
-		var isAPIInitialized = setInterval(function() {
+		var isInitialized = setInterval(function() {
 			if(API.initiated){
-				clearInterval(isAPIInitialized);
-				console.log("Inited");
-				var isTagsInitialized = {};
+				clearInterval(isInitialized);
 				for(var [key, plugin] of Object.entries(['organizations','leads','my_leads','my_prospects','clients','my_clients'])){
-					if(API.Helper.isSet(API.Contents,['Settings','plugins',plugin,'status']) && API.Contents.Settings.plugins[plugin].status){
-						isTagsInitialized[plugin] = setInterval(function() {
-							clearInterval(isTagsInitialized[plugin]);
-							if(API.Helper.isSet(API.Plugins,[plugin,'forms','create'])){
-								clearInterval(isTagsInitialized[plugin]);
-								API.Plugins[plugin].forms.create.tags = { 0:"tags" }
-								console.log(API.Plugins[plugin].forms.create.tags);
-							}
-						}, 10000);
-					}
+					API.Plugins.tags.customize(plugin);
 				}
 			}
 		}, 100);
+	},
+	customize:function(plugin){
+		if(API.Helper.isSet(API.Contents,['Settings','plugins',plugin,'status']) && API.Contents.Settings.plugins[plugin].status){
+			var isInitialized = setInterval(function() {
+				if(API.Helper.isSet(API.Plugins,[plugin,'forms','create'])){
+					clearInterval(isInitialized);
+					API.Plugins[plugin].forms.create.tags = { 0:"tags" }
+					console.log(API.Plugins[plugin].forms.create.tags);
+				}
+			}, 100);
+		}
 	},
 	load:{
 		index:function(){
