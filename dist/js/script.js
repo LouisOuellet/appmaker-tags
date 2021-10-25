@@ -21,7 +21,6 @@ API.Plugins.tags = {
 				if(API.Helper.isSet(API.Plugins,[plugin,'forms','create'])){
 					clearInterval(isInitialized);
 					API.Plugins[plugin].forms.create.tags = { 0:"tags" }
-					console.log(API.Plugins[plugin].forms.create.tags);
 				}
 			}, 100);
 		}
