@@ -6,6 +6,11 @@ API.Plugins.tags = {
 	},
 	init:function(){
 		API.GUI.Sidebar.Nav.add('tags', 'development');
+		if(API.Helper.isSet(API.Plugins,['organizations'])){
+			API.Plugins.organizations.form.create.tags = {
+			  0:"tags",
+			}
+		}
 	},
 	load:{
 		index:function(){
