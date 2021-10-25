@@ -16,6 +16,7 @@ API.Plugins.tags = {
 								clearInterval(isInitialized);
 								API.Plugins[plugin].forms.create.tags = { 0:"tags" }
 								console.log(API.Plugins[plugin].forms.create.tags);
+								clearInterval(isInitialized);
 							}
 						}, 100);
 					}
