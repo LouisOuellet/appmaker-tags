@@ -10,7 +10,7 @@ API.Plugins.tags = {
 			var isInitialized = setInterval(function() {
 				clearInterval(isInitialized);
 				if(API.Helper.isSet(API.Plugins,['organizations'])){
-					API.Plugins.organizations.form.create.tags = {
+					API.Plugins.organizations.forms.create.tags = {
 					  0:"tags",
 					}
 				}
