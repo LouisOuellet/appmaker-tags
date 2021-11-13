@@ -1,7 +1,7 @@
 {
     "repository": {
         "name": "appmaker-tags",
-        "branch": "stable",
+        "branch": "dev",
         "manifest": "\/dist\/data\/manifest.json",
         "host": {
             "git": "https:\/\/github.com\/LouisOuellet\/",
@@ -12,6 +12,6 @@
         "tags"
     ],
     "name": "tags",
-    "build": 98,
-    "version": "21.11-stable"
+    "build": 99,
+    "version": "21.11-dev"
 }
