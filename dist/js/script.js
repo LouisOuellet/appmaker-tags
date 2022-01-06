@@ -86,6 +86,8 @@ API.Plugins.tags = {
 						var td = tr.find('td[data-plugin="'+url.searchParams.get("p")+'"][data-key="tags"]');
 						td.html('');
 						if(API.Helper.isSet(data,['this','raw','tags'])){
+							console.log(data.this.raw.tags);
+							console.log(data.this.raw.tags.split(';'));
 							for(var [id, tag] of Object.entries(data.this.raw.tags.split(';'))){
 								td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
 							}
@@ -94,7 +96,10 @@ API.Plugins.tags = {
 							}
 						}
 						if(API.Helper.isSet(data,['this','raw','meta'])){
+							console.log(data.this.raw.meta);
+							console.log(JSON.parse(data.this.raw.meta));
 							for(var [id, tag] of Object.entries(JSON.parse(data.this.raw.meta))){
+								console.log(tag.split(':'));
 								tag = tag.split(':');
 								td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
 							}
