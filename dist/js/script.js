@@ -90,7 +90,7 @@ API.Plugins.tags = {
 								td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
 							}
 							if(API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 2)){
-								td.append('<button type="button" class="btn btn-xs btn-success mx-1" data-action="tag"><i class="fas fa-plus"></i></button>');
+								td.append('<button type="button" class="btn btn-xs btn-success mx-1" data-action="tag"><i class="fas fa-tag"></i></button>');
 							}
 						}
 						if(API.Helper.isSet(data,['this','raw','meta'])){
@@ -107,25 +107,25 @@ API.Plugins.tags = {
 					});
 				} else {
 					var td = layout.details.tags.find('td[data-plugin="'+url.searchParams.get("p")+'"][data-key="tags"]');
-					// if(API.Helper.isSet(data,['this','raw','tags'])){
-					// 	for(var [id, organization] of Object.entries(data.relations.tags)){
-					// 		if(organization.isActive || API.Auth.validate('custom', 'tags_isActive', 1)){
-					// 			td.append(API.Plugins.tags.Layouts.details.GUI.button(organization,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
-					// 		}
-					// 	}
-					// 	if(API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 2)){
-					// 		td.append('<button type="button" class="btn btn-xs btn-success mx-1" data-action="link"><i class="fas fa-link"></i></button>');
-					// 	}
-					// }
-					// if(API.Helper.isSet(data,['relations','tags'])){
-					// 	for(var [id, organization] of Object.entries(data.relations.tags)){
-					// 		if(td.find('div.btn-group[data-id="'+organization.id+'"]').length <= 0){
-					// 			if(organization.isActive || API.Auth.validate('custom', 'tags_isActive', 1)){
-					// 				td.prepend(API.Plugins.tags.Layouts.details.GUI.button(organization,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
-					// 			}
-					// 		}
-					// 	}
-					// }
+					if(API.Helper.isSet(data,['this','raw','tags'])){
+						if(API.Helper.isSet(data,['this','raw','tags'])){
+							for(var [id, tag] of Object.entries(data.this.raw.tags.split(';'))){
+								if(td.find('div.btn-group[data-tag="'+tag+'"]').length <= 0){
+									td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
+								}
+							}
+						}
+						if(API.Helper.isSet(data,['this','raw','meta'])){
+							for(var [id, tag] of Object.entries(JSON.parse(data.this.raw.meta))){
+								tag = tag.split(':');
+								if(td.find('div.btn-group[data-tag="'+tag[tag.length-1]+'"]').length <= 0){
+									td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
+								}
+							}
+						}
+						API.Plugins.tags.Layouts.details.Events(data,layout);
+						if(callback != null){ callback(data,layout,tr); }
+					}
 				}
 			},
 			GUI:{
@@ -159,6 +159,17 @@ API.Plugins.tags = {
 				if(options instanceof Function){ callback = options; options = {}; }
 				var defaults = {};
 				for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
+				var td = layout.details.tags.find('td[data-plugin="'+url.searchParams.get("p")+'"][data-key="tags"]');
+				td.find('button[data-action]').off().click(function(){
+					var button = $(this);
+					var action = button.attr('data-action');
+					var tag = button.attr('data-tag');
+					switch(action){
+						case'pastebin':
+							API.Helper.copyToClipboard(tag);
+							break;
+					}
+				});
 				if(callback != null){ callback(dataset,layout); }
 			},
 		},
