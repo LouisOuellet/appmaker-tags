@@ -86,8 +86,6 @@ API.Plugins.tags = {
 						var td = tr.find('td[data-plugin="'+url.searchParams.get("p")+'"][data-key="tags"]');
 						td.html('');
 						if(API.Helper.isSet(data,['this','raw','tags'])){
-							console.log(data.this.raw.tags);
-							console.log(data.this.raw.tags.split(';'));
 							for(var [id, tag] of Object.entries(data.this.raw.tags.split(';'))){
 								td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
 							}
@@ -96,10 +94,7 @@ API.Plugins.tags = {
 							}
 						}
 						if(API.Helper.isSet(data,['this','raw','meta'])){
-							console.log(data.this.raw.meta);
-							console.log(JSON.parse(data.this.raw.meta));
 							for(var [id, tag] of Object.entries(JSON.parse(data.this.raw.meta))){
-								console.log(tag.split(':'));
 								tag = tag.split(':');
 								td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
 							}
@@ -142,7 +137,7 @@ API.Plugins.tags = {
 					if(tag instanceof Array){
 						var html = '<div class="btn-group m-1" data-tag="'+tag[tag.length-1]+'">';
 							html += '<button type="button" class="btn btn-xs bg-primary" data-category="'+tag[0]+'"><i class="fas fa-barcode mr-1"></i>'+tag[0]+'</button>';
-							html += '<button type="button" class="btn btn-xs bg-default" data-tag="'+tag[tag.length-1]+'" data-action="pastebin"><i class="fas fa-tag mr-1"></i>'+tag[tag.length-1]+'</button>';
+							html += '<button type="button" class="btn btn-xs btn-default" data-tag="'+tag[tag.length-1]+'" data-action="pastebin"><i class="fas fa-tag mr-1"></i>'+tag[tag.length-1]+'</button>';
 							if(defaults.remove){
 								html += '<button type="button" class="btn btn-xs bg-danger" data-tag="'+tag[tag.length-1]+'" data-action="untag"><i class="fas fa-trash-alt"></i></button>';
 							}
