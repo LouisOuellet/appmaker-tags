@@ -168,6 +168,9 @@ API.Plugins.tags = {
 						case'pastebin':
 							API.Helper.copyToClipboard(tag);
 							break;
+						default:
+							console.log(action,tag,button);
+							break;
 					}
 				});
 				if(callback != null){ callback(dataset,layout); }
