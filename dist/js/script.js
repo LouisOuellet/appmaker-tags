@@ -1,46 +1,46 @@
-API.Plugins.tags = {
+Engine.Plugins.tags = {
 	element:{
 		table:{
 			index:{},
 		},
 	},
 	init:function(){
-		API.GUI.Sidebar.Nav.add('tags', 'development');
+		Engine.GUI.Sidebar.Nav.add('tags', 'development');
 		var isInitialized = setInterval(function() {
-			if(API.initiated){
+			if(Engine.initiated){
 				clearInterval(isInitialized);
 				for(var [key, plugin] of Object.entries(['organizations','leads','my_leads','my_prospects','clients','my_clients'])){
-					API.Plugins.tags.customize(plugin);
+					Engine.Plugins.tags.customize(plugin);
 				}
 			}
 		}, 100);
 	},
 	customize:function(plugin){
-		if(API.Helper.isSet(API.Contents,['Settings','plugins',plugin,'status']) && API.Contents.Settings.plugins[plugin].status){
+		if(Engine.Helper.isSet(Engine.Contents,['Settings','plugins',plugin,'status']) && Engine.Contents.Settings.plugins[plugin].status){
 			var isInitialized = setInterval(function() {
-				if(API.Helper.isSet(API.Plugins,[plugin,'forms','create'])){
+				if(Engine.Helper.isSet(Engine.Plugins,[plugin,'forms','create'])){
 					clearInterval(isInitialized);
 					var id = 0;
-					for(var [key, value] of Object.entries(API.Plugins[plugin].forms.create)){
-						if(API.Helper.isInt(key)){ id = key; }
+					for(var [key, value] of Object.entries(Engine.Plugins[plugin].forms.create)){
+						if(Engine.Helper.isInt(key)){ id = key; }
 					}
 					id++;
-					API.Plugins[plugin].forms.create[id] = "tags";
+					Engine.Plugins[plugin].forms.create[id] = "tags";
 				}
 			}, 100);
 		}
 	},
 	load:{
 		index:function(){
-			API.Builder.card($('#pagecontent'),{ title: 'Tags', icon: 'tags'}, function(card){
-				API.request('tags','read',{
+			Engine.Builder.card($('#pagecontent'),{ title: 'Tags', icon: 'tags'}, function(card){
+				Engine.request('tags','read',{
 					data:{options:{ link_to:'TagsIndex',plugin:'tags',view:'index' }},
 				},function(result) {
 					var dataset = JSON.parse(result);
 					if(dataset.success != undefined){
-						for(const [key, value] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','tags',value.name],value); }
-						for(const [key, value] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','tags',value.name],value); }
-						API.Builder.table(card.children('.card-body'), dataset.output.dom, {
+						for(const [key, value] of Object.entries(dataset.output.dom)){ Engine.Helper.set(Engine.Contents,['data','dom','tags',value.name],value); }
+						for(const [key, value] of Object.entries(dataset.output.raw)){ Engine.Helper.set(Engine.Contents,['data','raw','tags',value.name],value); }
+						Engine.Builder.table(card.children('.card-body'), dataset.output.dom, {
 							headers:dataset.output.headers,
 							id:'TagsIndex',
 							modal:true,
@@ -49,7 +49,7 @@ API.Plugins.tags = {
 							controls:{ toolbar:true},
 							import:{ key:'id', },
 						},function(response){
-							API.Plugins.tags.element.table.index = response.table;
+							Engine.Plugins.tags.element.table.index = response.table;
 						});
 					}
 				});
@@ -63,10 +63,10 @@ API.Plugins.tags = {
 					values += $(this).html();
 				});
 				if(values == ''){
-					API.request('tags','read',{data:{id:id,key:'name'}},function(result){
+					Engine.request('tags','read',{data:{id:id,key:'name'}},function(result){
 						var dataset = JSON.parse(result);
 						if(dataset.success != undefined){
-							API.GUI.insert(dataset.output.dom);
+							Engine.GUI.insert(dataset.output.dom);
 						}
 					});
 				}
@@ -79,51 +79,51 @@ API.Plugins.tags = {
 				if(options instanceof Function){ callback = options; options = {}; }
 				var url = new URL(window.location.href);
 				var defaults = {field: "tags", plugin:url.searchParams.get("p")};
-				for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
-				API.Builder.Timeline.add.filter(layout,'tags','Tags');
-				if(!API.Helper.isSet(layout,['details','tags'])){
-					API.GUI.Layouts.details.data(data,layout,defaults,function(data,layout,tr){
+				for(var [key, option] of Object.entries(options)){ if(Engine.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
+				Engine.Builder.Timeline.add.filter(layout,'tags','Tags');
+				if(!Engine.Helper.isSet(layout,['details','tags'])){
+					Engine.GUI.Layouts.details.data(data,layout,defaults,function(data,layout,tr){
 						var td = tr.find('td[data-plugin="'+url.searchParams.get("p")+'"][data-key="tags"]');
 						td.html('');
-						if(API.Helper.isSet(data,['this','raw','tags'])){
+						if(Engine.Helper.isSet(data,['this','raw','tags'])){
 							for(var [id, tag] of Object.entries(data.this.raw.tags.split(';'))){
-								td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
+								td.prepend(Engine.Plugins.tags.Layouts.details.GUI.button(tag,{remove:Engine.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
 							}
-							if(API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 2)){
+							if(Engine.Auth.validate('custom', url.searchParams.get("p")+'_tags', 2)){
 								td.append('<button type="button" class="btn btn-xs btn-success mx-1" data-action="tag"><i class="fas fa-tag"></i></button>');
 							}
 						}
-						if(API.Helper.isSet(data,['this','raw','meta'])){
+						if(Engine.Helper.isSet(data,['this','raw','meta'])){
 							for(var [id, tag] of Object.entries(JSON.parse(data.this.raw.meta))){
 								tag = tag.split(':');
-								td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
+								td.prepend(Engine.Plugins.tags.Layouts.details.GUI.button(tag,{remove:Engine.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
 							}
-							if(API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 2)){
+							if(Engine.Auth.validate('custom', url.searchParams.get("p")+'_tags', 2)){
 								td.append('<button type="button" class="btn btn-xs btn-success mx-1" data-action="tag"><i class="fas fa-tag"></i></button>');
 							}
 						}
-						API.Plugins.tags.Layouts.details.Events(data,layout);
+						Engine.Plugins.tags.Layouts.details.Events(data,layout);
 						if(callback != null){ callback(data,layout,tr); }
 					});
 				} else {
 					var td = layout.details.tags.find('td[data-plugin="'+url.searchParams.get("p")+'"][data-key="tags"]');
-					if(API.Helper.isSet(data,['this','raw','tags'])){
-						if(API.Helper.isSet(data,['this','raw','tags'])){
+					if(Engine.Helper.isSet(data,['this','raw','tags'])){
+						if(Engine.Helper.isSet(data,['this','raw','tags'])){
 							for(var [id, tag] of Object.entries(data.this.raw.tags.split(';'))){
 								if(td.find('div.btn-group[data-tag="'+tag+'"]').length <= 0){
-									td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
+									td.prepend(Engine.Plugins.tags.Layouts.details.GUI.button(tag,{remove:Engine.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
 								}
 							}
 						}
-						if(API.Helper.isSet(data,['this','raw','meta'])){
+						if(Engine.Helper.isSet(data,['this','raw','meta'])){
 							for(var [id, tag] of Object.entries(JSON.parse(data.this.raw.meta))){
 								tag = tag.split(':');
 								if(td.find('div.btn-group[data-tag="'+tag[tag.length-1]+'"]').length <= 0){
-									td.prepend(API.Plugins.tags.Layouts.details.GUI.button(tag,{remove:API.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
+									td.prepend(Engine.Plugins.tags.Layouts.details.GUI.button(tag,{remove:Engine.Auth.validate('custom', url.searchParams.get("p")+'_tags', 4)}));
 								}
 							}
 						}
-						API.Plugins.tags.Layouts.details.Events(data,layout);
+						Engine.Plugins.tags.Layouts.details.Events(data,layout);
 						if(callback != null){ callback(data,layout,tr); }
 					}
 				}
@@ -133,7 +133,7 @@ API.Plugins.tags = {
 					var url = new URL(window.location.href);
 					if(options instanceof Function){ callback = options; options = {}; }
 					var defaults = {remove: false};
-					for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
+					for(var [key, option] of Object.entries(options)){ if(Engine.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
 					if(tag instanceof Array){
 						var html = '<div class="btn-group m-1" data-tag="'+tag[tag.length-1]+'">';
 							html += '<button type="button" class="btn btn-xs bg-primary" data-category="'+tag[0]+'"><i class="fas fa-barcode mr-1"></i>'+tag[0]+'</button>';
@@ -158,7 +158,7 @@ API.Plugins.tags = {
 				var url = new URL(window.location.href);
 				if(options instanceof Function){ callback = options; options = {}; }
 				var defaults = {};
-				for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
+				for(var [key, option] of Object.entries(options)){ if(Engine.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
 				var td = layout.details.tags.find('td[data-plugin="'+url.searchParams.get("p")+'"][data-key="tags"]');
 				td.find('button[data-action]').off().click(function(){
 					var button = $(this);
@@ -166,7 +166,7 @@ API.Plugins.tags = {
 					var tag = button.attr('data-tag');
 					switch(action){
 						case'pastebin':
-							API.Helper.copyToClipboard(tag);
+							Engine.Helper.copyToClipboard(tag);
 							break;
 						default:
 							console.log(action,tag,button);
@@ -179,4 +179,4 @@ API.Plugins.tags = {
 	},
 }
 
-API.Plugins.tags.init();
+Engine.Plugins.tags.init();
